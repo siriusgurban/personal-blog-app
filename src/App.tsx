@@ -3,7 +3,7 @@
 import { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
-import { ROOTER } from './constants/rooter.js'
+import { ROOTER } from './constants/router.js'
 import { Box } from '@chakra-ui/react'
 
 const Home = lazy(() => import('./pages/Home'))
@@ -25,7 +25,10 @@ function App() {
             <Route path={ROOTER.FAVORITE} element={<Favorite />} />
             <Route path={ROOTER.FAQ} element={<FAQ />} />
             <Route path={ROOTER.ARTICLES} element={<Articles />} />
-            <Route path={ROOTER.ARTICLES + ':id'} element={<ArticleDetail />} />
+            <Route
+              path={ROOTER.ARTICLES + '/:id'}
+              element={<ArticleDetail />}
+            />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Box>

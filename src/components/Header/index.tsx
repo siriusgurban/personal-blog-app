@@ -1,6 +1,6 @@
 import { Box, Button, Stack, Text } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
-import { ROOTER } from '../../constants/rooter.js'
+import { ROOTER } from '../../constants/router.js'
 
 function Header() {
   const navigate = useNavigate()
