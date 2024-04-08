@@ -2,12 +2,12 @@
 
 import {
   Box,
+  Button,
   Card,
   CardBody,
   Heading,
   Image,
   SimpleGrid,
-  Skeleton,
   Text,
 } from '@chakra-ui/react'
 import { useFetchData } from '../../hooks/useFetchData'
@@ -16,13 +16,30 @@ import { getBlogId } from '../../services/article'
 import { shortText } from '../../utils/shortText'
 import { convertTime } from '../../utils/convertTime'
 import SpinnerLoad from '../../components/Skeleton'
+import { useGlobalContext } from '../../store/global/GlobalProvider'
+import { TYPES } from '../../store/global/types'
 
 function Home() {
   const { id } = useParams()
+  const { state, dispatch } = useGlobalContext()
 
   const { data, loading } = useFetchData({
     fetchFn: () => getBlogId(parseInt(id)),
   })
+
+  const favBool = state?.favorite?.find((item) => item?.id == id)
+
+  function toggleFav() {
+    console.log(state, 'state')
+
+    if (favBool) {
+      const favBool = state?.favorite?.filter((item) => item?.id != id)
+      dispatch({ type: TYPES.FAV, payload: favBool })
+      return
+    }
+
+    dispatch({ type: TYPES.FAV, payload: [...state.favorite, data] })
+  }
 
   return (
     <>
@@ -57,6 +74,9 @@ function Home() {
             <Text pt="2" fontSize="lg">
               {shortText(data?.desc, 5)}
             </Text>
+            <Button color={favBool ? 'teal' : 'red'} onClick={toggleFav}>
+              {favBool ? 'Favorite' : 'Not Favorite'}
+            </Button>
           </Box>
         </SimpleGrid>
       )}

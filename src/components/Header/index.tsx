@@ -1,9 +1,16 @@
-import { Box, Button, Stack, Text } from '@chakra-ui/react'
+// @ts-nocheck
+
+import { Badge, Box, Button, Stack, Text } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { ROOTER } from '../../constants/router.js'
+import { useGlobalContext } from '../../store/global/GlobalProvider.js'
 
 function Header() {
   const navigate = useNavigate()
+
+  const {
+    state: { favorite },
+  } = useGlobalContext()
 
   return (
     <div>
@@ -55,6 +62,7 @@ function Header() {
             }}
           >
             Favorite
+            <Badge color="red">{!!favorite?.length && favorite?.length}</Badge>
           </Button>
           <Button
             colorScheme="telegram"

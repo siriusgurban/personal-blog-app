@@ -18,7 +18,7 @@ function App() {
     <>
       <Suspense fallback>
         <Header />
-        <Box bg="red.100">
+        <Box bg="red.50">
           <Routes>
             <Route path={ROOTER.HOME} element={<Home />} />
             <Route path={ROOTER.ABOUT} element={<About />} />/

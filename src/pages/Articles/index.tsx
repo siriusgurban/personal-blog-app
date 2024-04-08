@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom'
 import { ROOTER } from '../../constants/router'
 import { useFetchData } from '../../hooks/useFetchData'
 import SpinnerLoad from '../../components/Skeleton'
+import SearchBox from '../../components/SearchBox'
+import { useEffect, useState } from 'react'
 
 // type Obj = {
 //   title: string
@@ -19,28 +21,54 @@ import SpinnerLoad from '../../components/Skeleton'
 
 function Home() {
   const navigate = useNavigate()
+  const [searchData, setSearchData] = useState([])
 
   const { data, loading } = useFetchData({
     fetchFn: () => getBlogs(),
   })
 
+  useEffect(() => {
+    setSearchData(data)
+  }, [data])
+
+  function onSearch(text: string) {
+    if (text.length != 0) {
+      const filteredData = data?.filter((item) =>
+        item?.title?.toLowerCase()?.includes(text?.toLowerCase()),
+      )
+      setSearchData(filteredData)
+      console.log(filteredData, 'filteredData')
+    } else {
+      setSearchData(data)
+    }
+  }
+
   return (
-    <SimpleGrid spacing={20} display="flex" flexWrap="wrap" px={10} py={10}>
-      {loading ? (
-        <SpinnerLoad />
-      ) : (
-        data
-          ?.filter((item) => item?.id > 95)
-          ?.map((item) => {
-            return (
-              <BlogCard
-                key={item?.id + 'card'}
-                {...item}
-                onReadMore={() => navigate(ROOTER.ARTICLES + '/' + item?.id)}
-              />
-            )
-          })
-      )}
+    <SimpleGrid
+      spacing={16}
+      display="flex"
+      flexDirection="column"
+      px={10}
+      py={6}
+    >
+      <SearchBox onSearch={onSearch} />
+      <SimpleGrid spacing={16} display="flex" flexWrap="wrap" px={10}>
+        {loading ? (
+          <SpinnerLoad />
+        ) : (
+          searchData
+            ?.filter((item) => item?.id > 95)
+            ?.map((item) => {
+              return (
+                <BlogCard
+                  key={item?.id + 'card'}
+                  {...item}
+                  onReadMore={() => navigate(ROOTER.ARTICLES + '/' + item?.id)}
+                />
+              )
+            })
+        )}
+      </SimpleGrid>
     </SimpleGrid>
   )
 }

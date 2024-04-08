@@ -6,7 +6,7 @@ import {
   Image,
   Text,
 } from '@chakra-ui/react'
-import { ShortText } from '../../utils/ShortText'
+import { shortText } from '../../utils/shortText'
 
 function BlogCard({
   title,
@@ -17,10 +17,6 @@ function BlogCard({
   desc: string
   onReadMore: () => void
 }) {
-  {
-    console.log(ShortText(desc, 5), 'new desc')
-  }
-
   return (
     <Card maxW="sm" maxH="sm">
       <CardHeader
@@ -28,13 +24,13 @@ function BlogCard({
         justifyContent="space-between"
         alignItems="center"
       >
-        <Text>{title}</Text>
+        <Text>{shortText(title, 15)}</Text>
         <Button variant="solid" onClick={onReadMore}>
           Show More
         </Button>
       </CardHeader>
       <CardBody>
-        <Text>{ShortText(desc, 5)}</Text>
+        <Text>{shortText(desc, 5)}</Text>
       </CardBody>
       <Image
         objectFit="cover"

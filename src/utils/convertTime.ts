@@ -3,5 +3,5 @@ const month= ["January","February","March","April","May","June","July",
 
 export const convertTime =(mil:string)=>{
         const time = new Date(parseInt(mil));
-        return `${time.getDate()} ${month[time.getMonth()]} ${time.getFullYear()}, ${time.getHours()}:${time.getMinutes()} `
+        return `${time.getDate()} ${month[time.getMonth()]} ${time.getFullYear()}, ${time.getHours()}:${time.getMinutes()}`
 }
