@@ -5,6 +5,8 @@ import { Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
 import { ROOTER } from './constants/router.js'
 import { Box } from '@chakra-ui/react'
+import Create from './pages/Create/index.js'
+import Settings from './pages/Settings/index.js'
 
 const Home = lazy(() => import('./pages/Home'))
 const About = lazy(() => import('./pages/About'))
@@ -29,6 +31,8 @@ function App() {
               path={ROOTER.ARTICLES + '/:id'}
               element={<ArticleDetail />}
             />
+            <Route path={ROOTER.CREATE} element={<Create />} />
+            <Route path={ROOTER.SETTINGS} element={<Settings />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Box>

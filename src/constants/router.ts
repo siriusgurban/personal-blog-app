@@ -3,5 +3,7 @@ export const ROOTER = {
     ABOUT: "/about",
     FAVORITE: "/favorite",
     FAQ: "/faq",
-    ARTICLES: "/articles"
+    ARTICLES: "/articles",
+    CREATE: "/create",
+    SETTINGS: "/settings"
 }

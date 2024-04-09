@@ -1,7 +1,7 @@
 // @ts-nocheck
 
-import { Badge, Box, Button, Stack, Text } from '@chakra-ui/react'
-import { useNavigate } from 'react-router-dom'
+import { Badge, Box, Button, Image, Stack } from '@chakra-ui/react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { ROOTER } from '../../constants/router.js'
 import { useGlobalContext } from '../../store/global/GlobalProvider.js'
 
@@ -11,6 +11,11 @@ function Header() {
   const {
     state: { favorite },
   } = useGlobalContext()
+
+  const { pathname } = useLocation()
+  function isActive(param: string) {
+    return pathname === param ? 'orange.700' : 'telegram'
+  }
 
   return (
     <div>
@@ -24,7 +29,7 @@ function Header() {
         borderBottomWidth="6px"
         borderColor="orange.700"
       >
-        <Text
+        <Image
           colorScheme="telegram"
           variant="ghost"
           onClick={() => {
@@ -32,11 +37,11 @@ function Header() {
           }}
           cursor="pointer"
           fontSize="3xl"
-        >
-          Home
-        </Text>
+          src="../../../icons8-blog-96.png"
+        />
         <Stack direction="row" spacing={4} align="center">
           <Button
+            color={isActive(ROOTER.HOME)}
             colorScheme="telegram"
             variant="ghost"
             onClick={() => {
@@ -46,6 +51,7 @@ function Header() {
             Home
           </Button>
           <Button
+            color={isActive(ROOTER.ARTICLES)}
             colorScheme="telegram"
             variant="ghost"
             onClick={() => {
@@ -55,6 +61,7 @@ function Header() {
             Articles
           </Button>
           <Button
+            color={isActive(ROOTER.FAVORITE)}
             colorScheme="telegram"
             variant="ghost"
             onClick={() => {
@@ -65,6 +72,7 @@ function Header() {
             <Badge color="red">{!!favorite?.length && favorite?.length}</Badge>
           </Button>
           <Button
+            color={isActive(ROOTER.FAQ)}
             colorScheme="telegram"
             variant="ghost"
             onClick={() => {
@@ -72,6 +80,28 @@ function Header() {
             }}
           >
             FAQ
+          </Button>
+        </Stack>
+        <Stack direction="row" spacing={4} align="center">
+          <Button
+            color={isActive(ROOTER.CREATE)}
+            colorScheme="telegram"
+            variant="solid"
+            onClick={() => {
+              navigate(ROOTER.CREATE)
+            }}
+          >
+            Create
+          </Button>
+          <Button
+            color={isActive(ROOTER.SETTINGS)}
+            colorScheme="telegram"
+            variant="solid"
+            onClick={() => {
+              navigate(ROOTER.SETTINGS)
+            }}
+          >
+            Settings
           </Button>
         </Stack>
       </Box>

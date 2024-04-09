@@ -8,8 +8,11 @@ import {
   SimpleGrid,
   Text,
 } from '@chakra-ui/react'
+import useTitle from '../../hooks/useTitle'
 
 function Home() {
+  useTitle('Home | PB')
+
   return (
     <div>
       <SimpleGrid

@@ -18,14 +18,16 @@ import { convertTime } from '../../utils/convertTime'
 import SpinnerLoad from '../../components/Skeleton'
 import { useGlobalContext } from '../../store/global/GlobalProvider'
 import { TYPES } from '../../store/global/types'
+import useTitle from '../../hooks/useTitle'
 
-function Home() {
+function ArticleDetail() {
   const { id } = useParams()
   const { state, dispatch } = useGlobalContext()
 
   const { data, loading } = useFetchData({
     fetchFn: () => getBlogId(parseInt(id)),
   })
+  useTitle(`${shortText(data?.title, 16)} | PB`)
 
   const favBool = state?.favorite?.find((item) => item?.id == id)
 
@@ -84,4 +86,4 @@ function Home() {
   )
 }
 
-export default Home
+export default ArticleDetail

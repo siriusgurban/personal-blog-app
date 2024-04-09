@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import {
   Button,
   Card,
@@ -7,16 +9,21 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { shortText } from '../../utils/shortText'
+import { categories } from '../../constants/categories'
 
 function BlogCard({
   title,
   desc,
   onReadMore,
+  category,
 }: {
   title: string
   desc: string
   onReadMore: () => void
 }) {
+  const blogCategory = categories?.find((item) => item.category == category)
+  console.log(blogCategory, 'blogCategory')
+
   return (
     <Card maxW="sm" maxH="sm">
       <CardHeader
@@ -24,6 +31,9 @@ function BlogCard({
         justifyContent="space-between"
         alignItems="center"
       >
+        <Text textShadow="1px 1px #ff0000" m="6">
+          {blogCategory?.category}
+        </Text>
         <Text>{shortText(title, 15)}</Text>
         <Button variant="solid" onClick={onReadMore}>
           Show More

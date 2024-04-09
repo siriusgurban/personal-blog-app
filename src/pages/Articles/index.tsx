@@ -9,6 +9,7 @@ import { useFetchData } from '../../hooks/useFetchData'
 import SpinnerLoad from '../../components/Skeleton'
 import SearchBox from '../../components/SearchBox'
 import { useEffect, useState } from 'react'
+import useTitle from '../../hooks/useTitle'
 
 // type Obj = {
 //   title: string
@@ -22,6 +23,8 @@ import { useEffect, useState } from 'react'
 function Home() {
   const navigate = useNavigate()
   const [searchData, setSearchData] = useState([])
+
+  useTitle('Articles | PB')
 
   const { data, loading } = useFetchData({
     fetchFn: () => getBlogs(),

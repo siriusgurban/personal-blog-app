@@ -8,6 +8,7 @@ import { ROOTER } from '../../constants/router'
 import { useFetchData } from '../../hooks/useFetchData'
 import SpinnerLoad from '../../components/Skeleton'
 import { useGlobalContext } from '../../store/global/GlobalProvider'
+import useTitle from '../../hooks/useTitle'
 
 function Favorite() {
   const navigate = useNavigate()
@@ -15,9 +16,11 @@ function Favorite() {
     state: { favorite },
   } = useGlobalContext()
 
-  const { data, loading } = useFetchData({
+  const { loading } = useFetchData({
     fetchFn: () => getBlogs(),
   })
+
+  useTitle('Favorite | PB')
 
   return (
     <SimpleGrid
