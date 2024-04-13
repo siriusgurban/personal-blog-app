@@ -21,7 +21,8 @@ import { useFormik } from 'formik'
 import { categories } from '../../constants/categories'
 import defaulImage from '../../assets/default_image.png'
 import { ROOTER } from '../../constants/router'
-import { crtBlog } from '../../services/article'
+import { crtBlog, getBlogId } from '../../services/article'
+import { useFetchData } from '../../hooks/useFetchData'
 
 const initialValues = {
   title: '',
@@ -41,6 +42,10 @@ function Create() {
 
   const [par] = useSearchParams()
   const parId = par?.get('blog_id')
+
+  const { data } = useFetchData({
+    fetchFn: () => getBlogId(parseInt(parId)),
+  })
 
   const { values, handleChange, handleSubmit, errors } = useFormik({
     initialValues,
@@ -96,12 +101,24 @@ function Create() {
       </Heading>
       <FormControl>
         <FormLabel htmlFor="title">Title</FormLabel>
-        <Input type="text" id="title" name="title" onChange={handleChange} />
+        <Input
+          type="text"
+          id="title"
+          name="title"
+          value={data?.title}
+          onChange={handleChange}
+        />
         {errors?.title && (
           <FormHelperText color="red">{errors?.title}</FormHelperText>
         )}
         <FormLabel htmlFor="desc">Description</FormLabel>
-        <Input type="text" id="desc" name="desc" onChange={handleChange} />
+        <Input
+          type="text"
+          id="desc"
+          name="desc"
+          value={data?.desc}
+          onChange={handleChange}
+        />
         {errors?.desc && (
           <FormHelperText color="red">{errors?.desc}</FormHelperText>
         )}
@@ -112,7 +129,11 @@ function Create() {
           onChange={handleChange}
         >
           {categories?.map((item) => (
-            <option key={item.id} value={item.category}>
+            <option
+              key={item.id}
+              value={item.category}
+              selected={item.id == data?.category}
+            >
               <Text color="red">{item.category}</Text>
             </option>
           ))}
